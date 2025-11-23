@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- =========================
+       CONFIGURACIÓN GENERAL
+  ========================== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>J&M | Othal Studio</title>
 
-  <!-- Google Fonts (las que elegimos) -->
+  <!-- =========================
+       GOOGLE FONTS
+       Títulos: Cormorant Garamond
+       Cuerpo: Inter
+  ========================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    /* =========================
+         VARIABLES GLOBALES
+         (Paleta, sombras, anchos)
+    ========================== */
     :root{
       --bg: #f7f6f4;
       --bg-soft: #ffffff;
@@ -34,7 +45,9 @@
 
     a{color:inherit; text-decoration:none}
 
-    /* NAV */
+    /* =========================
+         NAV / HEADER
+    ========================== */
     header{
       position:sticky;
       top:0;
@@ -74,58 +87,114 @@
       background:rgba(0,0,0,.04);
     }
 
-    /* INTRO (texto pequeño + imagen apagada) */
-    .intro{
+    /* =========================
+         INTRO SIMPLE
+         (Texto centrado arriba
+          + carrusel abajo)
+    ========================== */
+    .intro-simple{
       max-width: var(--maxw);
-      margin: 22px auto 0;
+      margin: 40px auto 18px;
+      padding: 0 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Texto centrado inicial */
+    .intro-simple-text{
+      font-family: "Cormorant Garamond", serif;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--ink);
+      margin: 0 auto;
+      max-width: 34ch;
+    }
+
+    /* =========================
+         CARRUSEL
+         (Fotos horizontales)
+    ========================== */
+    .carousel{
+      max-width: var(--maxw);
+      margin: 0 auto 8px;
       padding: 0 20px;
       position: relative;
     }
-    .intro-bg{
-      height: 170px;
-      border-radius: calc(var(--radius) + 6px);
-      background: url("https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1600&auto=format&fit=crop")
-                  center/cover no-repeat;
-      position: relative;
+
+    .carousel-viewport{
       overflow: hidden;
+      border-radius: calc(var(--radius) + 6px);
       border: 1px solid var(--hairline);
       box-shadow: var(--shadow);
-    }
-    .intro-bg::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: rgba(247,246,244,0.78); /* velo claro, imagen apagada */
-      backdrop-filter: blur(1.5px);
-    }
-    .intro-content{
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-      padding: 22px 26px;
-    }
-    .intro-eyebrow{
-      font-size: 11px;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 600;
-    }
-    .intro-text{
-      margin: 0;
-      font-family: Inter, sans-serif;
-      font-size: 14px;   /* texto pequeño */
-      color: var(--ink);
-      max-width: 60ch;
+      background: var(--bg-soft);
     }
 
-    /* HERO */
+    .carousel-track{
+      display: flex;
+      transition: transform .6s ease;
+      will-change: transform;
+    }
+
+    .carousel-slide{
+      min-width: 100%;
+      margin: 0;
+    }
+
+    .carousel-slide img{
+      width: 100%;
+      height: 340px;       /* ALTURA del carrusel */
+      object-fit: cover;   /* recorte elegante */
+      display: block;
+    }
+
+    /* Botones anterior/siguiente */
+    .carousel-btn{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--hairline);
+      background: rgba(255,255,255,0.9);
+      cursor: pointer;
+      font-size: 18px;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+    }
+    .carousel-btn.prev{ left: 34px; }
+    .carousel-btn.next{ right: 34px; }
+    .carousel-btn:hover{ background:#fff; }
+
+    /* Dots indicadores */
+    .carousel-dots{
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+    .carousel-dots .dot{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(0,0,0,.2);
+      cursor: pointer;
+    }
+    .carousel-dots .dot.active{
+      background: rgba(0,0,0,.6);
+    }
+
+    /* =========================
+         HERO FEATURED
+         (nota principal)
+    ========================== */
     .hero{
       max-width:var(--maxw);
-      margin:36px auto 0;
+      margin:26px auto 0;
       padding:0 20px 20px;
       display:grid;
       grid-template-columns:1.15fr .85fr;
@@ -179,6 +248,9 @@
       color:var(--muted);
     }
 
+    /* =========================
+         HERO SIDE (2 minis)
+    ========================== */
     .hero-side{
       background:transparent;
       padding:8px;
@@ -197,7 +269,12 @@
     .mini .img{
       background:#ccc center/cover no-repeat;
     }
-    .mini .content{padding:16px 16px 14px; display:flex; flex-direction:column; gap:6px;}
+    .mini .content{
+      padding:16px 16px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
     .mini h3{
       margin:0;
       font-family:"Cormorant Garamond", serif;
@@ -206,7 +283,10 @@
     }
     .mini p{margin:0; font-size:13px; color:var(--muted)}
 
-    /* CONTROLES */
+    /* =========================
+         CONTROLES
+         (tabs + buscador)
+    ========================== */
     .controls{
       max-width:var(--maxw);
       margin:10px auto 0;
@@ -228,6 +308,7 @@
       border-radius:999px;
       border:1px solid var(--hairline);
       background:var(--bg-soft);
+      cursor:pointer;
     }
     .tab.active{color:var(--ink); border-color:rgba(0,0,0,.18)}
 
@@ -245,9 +326,18 @@
       font-size:14px;
       outline:none;
     }
-    .search svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.55}
+    .search svg{
+      position:absolute;
+      left:12px;
+      top:50%;
+      transform:translateY(-50%);
+      opacity:.55
+    }
 
-    /* GRID DE STORIES */
+    /* =========================
+         GRID DE STORIES
+         (se llena por JS)
+    ========================== */
     main{
       max-width:var(--maxw);
       margin:14px auto 80px;
@@ -269,7 +359,10 @@
       flex-direction:column;
       transition:transform .25s ease, box-shadow .25s ease;
     }
-    article:hover{transform:translateY(-4px); box-shadow:0 14px 40px rgba(0,0,0,.09)}
+    article:hover{
+      transform:translateY(-4px);
+      box-shadow:0 14px 40px rgba(0,0,0,.09)
+    }
 
     .thumb{
       aspect-ratio: 4/3;
@@ -315,7 +408,9 @@
     }
     .dot{width:4px;height:4px;background:var(--muted);border-radius:999px;opacity:.6}
 
-    /* FOOTER */
+    /* =========================
+         FOOTER
+    ========================== */
     footer{
       border-top:1px solid var(--hairline);
       padding:26px 20px;
@@ -324,7 +419,9 @@
       text-align:center;
     }
 
-    /* RESPONSIVE */
+    /* =========================
+         RESPONSIVE
+    ========================== */
     @media (max-width: 980px){
       .grid{grid-template-columns:repeat(2,1fr)}
       .hero{grid-template-columns:1fr}
@@ -334,13 +431,18 @@
       .grid{grid-template-columns:1fr}
       h1{font-size:34px}
       .nav-links{display:none}
-      .intro-bg{height:150px;}
-      .intro-text{font-size:13px;}
+      .intro-simple-text{font-size:20px;}
+      .carousel-slide img{height:220px;}
+      .carousel-btn.prev{ left: 18px; }
+      .carousel-btn.next{ right: 18px; }
     }
   </style>
 </head>
-<body>
 
+<body>
+  <!-- =========================
+       HEADER / NAV
+  ========================== -->
   <header>
     <div class="nav">
       <div class="brand">Othal Studio</div>
@@ -354,17 +456,56 @@
     </div>
   </header>
 
-  <!-- NUEVA INTRO -->
-  <section class="intro">
-    <div class="intro-bg" aria-hidden="true"></div>
-    <div class="intro-content">
-      <div class="intro-eyebrow">Archivo · Fotografía Arquitectónica</div>
-      <p class="intro-text">
-        Una selección editorial de espacios donde la luz, la materia y el silencio construyen experiencia.
-      </p>
+  <!-- =========================
+       INTRO TEXTO + CARRUSEL
+       1) Editás el texto acá
+       2) Editás imágenes más abajo
+  ========================== -->
+  <section class="intro-simple">
+    <p class="intro-simple-text">
+      Una mirada editorial sobre espacios donde la luz, la forma y la calma se encuentran.
+    </p>
+  </section>
+
+  <!-- =========================
+       CARRUSEL DE IMÁGENES
+       Para cambiar fotos:
+       reemplazá src="..."
+  ========================== -->
+  <section class="carousel" aria-label="Carrusel de imágenes de arquitectura">
+    <div class="carousel-viewport">
+      <div class="carousel-track">
+
+        <figure class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1600&auto=format&fit=crop" alt="Casa 1">
+        </figure>
+
+        <figure class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop" alt="Casa 2">
+        </figure>
+
+        <figure class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1600&auto=format&fit=crop" alt="Casa 3">
+        </figure>
+
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <button class="carousel-btn prev" aria-label="Imagen anterior">←</button>
+    <button class="carousel-btn next" aria-label="Imagen siguiente">→</button>
+
+    <!-- Dots -->
+    <div class="carousel-dots" role="tablist" aria-label="Indicadores">
+      <button class="dot active" aria-label="Ir a imagen 1"></button>
+      <button class="dot" aria-label="Ir a imagen 2"></button>
+      <button class="dot" aria-label="Ir a imagen 3"></button>
     </div>
   </section>
 
+  <!-- =========================
+       HERO FEATURED
+  ========================== -->
   <section class="hero">
     <div class="hero-card">
       <div class="hero-img" aria-hidden="true"></div>
@@ -376,7 +517,10 @@
           <span class="dot"></span>
           <span>Por Miranda Matu</span>
         </div>
-        <p class="hero-p">Un recorrido editorial por casas donde la calma se diseña: texturas nobles, líneas puras y atmósferas que respiran.</p>
+        <p class="hero-p">
+          Un recorrido editorial por casas donde la calma se diseña: texturas nobles,
+          líneas puras y atmósferas que respiran.
+        </p>
         <a class="readmore" href="#">Leer story →</a>
       </div>
     </div>
@@ -390,6 +534,7 @@
           <p>Materiales cálidos y precisión minimalista.</p>
         </div>
       </a>
+
       <a class="mini" href="#">
         <div class="img" style="background-image:url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=1200&auto=format&fit=crop');"></div>
         <div class="content">
@@ -401,6 +546,9 @@
     </aside>
   </section>
 
+  <!-- =========================
+       CONTROLES (tabs + search)
+  ========================== -->
   <div class="controls">
     <div class="tabs" role="tablist" aria-label="Filtros">
       <button class="tab active" data-filter="all">All Stories</button>
@@ -408,21 +556,37 @@
       <button class="tab" data-filter="interiores">Interiores</button>
       <button class="tab" data-filter="paisaje">Paisaje</button>
     </div>
+
     <label class="search" aria-label="Buscar stories">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
       <input id="searchInput" type="search" placeholder="Buscar por título…" />
     </label>
   </div>
 
+  <!-- =========================
+       GRID DE STORIES
+       (JS lo rellena)
+  ========================== -->
   <main>
     <div class="grid" id="grid"></div>
   </main>
 
+  <!-- =========================
+       FOOTER
+  ========================== -->
   <footer>
     © 2025 Archivo Arquitectónico · Fotografía editorial de arquitectura.
   </footer>
 
   <script>
+    /* ==================================================
+       1) DATA DE STORIES (para la grilla de abajo)
+          Editás títulos, fechas, textos y fotos acá
+    ================================================== */
     const stories = [
       {
         category: "arquitectura",
@@ -478,6 +642,9 @@
     const tabs = document.querySelectorAll('.tab');
     const searchInput = document.getElementById('searchInput');
 
+    /* ==================================================
+       2) RENDER de la grilla de stories
+    ================================================== */
     function render(list){
       grid.innerHTML = list.map(s => `
         <article data-category="${s.category}">
@@ -495,6 +662,9 @@
       `).join('');
     }
 
+    /* ==================================================
+       3) FILTROS por tabs + buscador
+    ================================================== */
     function applyFilters(){
       const active = document.querySelector('.tab.active')?.dataset.filter || 'all';
       const q = searchInput.value.toLowerCase().trim();
@@ -517,6 +687,35 @@
     searchInput.addEventListener('input', applyFilters);
 
     render(stories);
+
+
+    /* ==================================================
+       4) CARRUSEL
+          - Cambiás fotos en el HTML arriba
+          - Dots y botones funcionan solos
+    ================================================== */
+    const track = document.querySelector(".carousel-track");
+    const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+    const prevBtn = document.querySelector(".carousel-btn.prev");
+    const nextBtn = document.querySelector(".carousel-btn.next");
+    const dots = Array.from(document.querySelectorAll(".carousel-dots .dot"));
+
+    let index = 0;
+
+    function goToSlide(i){
+      index = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+
+      dots.forEach(d => d.classList.remove("active"));
+      dots[index].classList.add("active");
+    }
+
+    prevBtn.addEventListener("click", () => goToSlide(index - 1));
+    nextBtn.addEventListener("click", () => goToSlide(index + 1));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => goToSlide(i)));
+
+    // Auto-play suave cada 5s
+    setInterval(() => goToSlide(index + 1), 5000);
   </script>
 </body>
 </html>
