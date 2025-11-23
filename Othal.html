@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stories | Archivo Arquitectónico</title>
+
+  <!-- Google Fonts (las que elegimos) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f7f6f4;
+      --bg-soft: #ffffff;
+      --ink: #151515;
+      --muted: #6b6b6b;
+      --hairline: rgba(0,0,0,.08);
+      --radius: 20px;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --maxw: 1120px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height:1.5;
+    }
+
+    a{color:inherit; text-decoration:none}
+
+    /* NAV */
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(247,246,244,.92);
+      backdrop-filter:saturate(180%) blur(8px);
+      border-bottom:1px solid var(--hairline);
+    }
+    .nav{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:14px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      font-family:"Cormorant Garamond", serif;
+      font-weight:600;
+      letter-spacing:.5px;
+      font-size:28px;
+    }
+    .nav-links{
+      display:flex;
+      gap:14px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .nav-links a{
+      padding:6px 8px;
+      border-radius:999px;
+    }
+    .nav-links a.active,
+    .nav-links a:hover{
+      color:var(--ink);
+      background:rgba(0,0,0,.04);
+    }
+
+    /* HERO */
+    .hero{
+      max-width:var(--maxw);
+      margin:36px auto 0;
+      padding:0 20px 20px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+    }
+    .hero-card{
+      background:var(--bg-soft);
+      border:1px solid var(--hairline);
+      border-radius:calc(var(--radius) + 6px);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      min-height:320px;
+    }
+    .hero-img{
+      background:#ddd url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
+      min-height:220px;
+    }
+    .hero-content{
+      padding:28px 26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:10px;
+    }
+    .eyebrow{
+      font-size:12px;
+      letter-spacing:1.6px;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-weight:600;
+    }
+    h1{
+      margin:0;
+      font-family:"Cormorant Garamond", serif;
+      font-weight:600;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:.2px;
+    }
+    .hero-p{
+      color:var(--muted);
+      font-size:15px;
+      max-width:44ch;
+    }
+    .hero-meta{
+      display:flex;
+      gap:10px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .hero-side{
+      background:transparent;
+      padding:8px;
+      display:grid;
+      gap:14px;
+    }
+    .mini{
+      background:var(--bg-soft);
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      min-height:150px;
+    }
+    .mini .img{
+      background:#ccc center/cover no-repeat;
+    }
+    .mini .content{padding:16px 16px 14px; display:flex; flex-direction:column; gap:6px;}
+    .mini h3{
+      margin:0;
+      font-family:"Cormorant Garamond", serif;
+      font-size:20px;
+      line-height:1.2;
+    }
+    .mini p{margin:0; font-size:13px; color:var(--muted)}
+
+    /* CONTROLES */
+    .controls{
+      max-width:var(--maxw);
+      margin:10px auto 0;
+      padding:0 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .tabs{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .tab{
+      font-size:13px;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--hairline);
+      background:var(--bg-soft);
+    }
+    .tab.active{color:var(--ink); border-color:rgba(0,0,0,.18)}
+
+    .search{
+      position:relative;
+      flex:1;
+      max-width:320px;
+    }
+    .search input{
+      width:100%;
+      padding:10px 12px 10px 36px;
+      border-radius:999px;
+      border:1px solid var(--hairline);
+      background:var(--bg-soft);
+      font-size:14px;
+      outline:none;
+    }
+    .search svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.55}
+
+    /* GRID DE STORIES */
+    main{
+      max-width:var(--maxw);
+      margin:14px auto 80px;
+      padding:0 20px;
+    }
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    article{
+      background:var(--bg-soft);
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    article:hover{transform:translateY(-4px); box-shadow:0 14px 40px rgba(0,0,0,.09)}
+
+    .thumb{
+      aspect-ratio: 4/3;
+      background:#d7d7d7 center/cover no-repeat;
+    }
+    .card{
+      padding:16px 16px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .label-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-weight:600;
+    }
+    .card h2{
+      margin:0;
+      font-family:"Cormorant Garamond", serif;
+      font-weight:600;
+      font-size:24px;
+      line-height:1.15;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .readmore{
+      margin-top:6px;
+      font-size:13px;
+      font-weight:600;
+      letter-spacing:.2px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      opacity:.9;
+    }
+    .dot{width:4px;height:4px;background:var(--muted);border-radius:999px;opacity:.6}
+
+    /* FOOTER */
+    footer{
+      border-top:1px solid var(--hairline);
+      padding:26px 20px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 980px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .hero{grid-template-columns:1fr}
+      .hero-card{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:34px}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav">
+      <div class="brand">Archivo Arquitectónico</div>
+      <nav class="nav-links">
+        <a class="active" href="#">Stories</a>
+        <a href="#">Arquitectura</a>
+        <a href="#">Interiores</a>
+        <a href="#">Viajes</a>
+        <a href="#">Acerca</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="hero-img" aria-hidden="true"></div>
+      <div class="hero-content">
+        <div class="eyebrow">Arquitectura · Featured</div>
+        <h1>Silencio, luz y materia</h1>
+        <div class="hero-meta">
+          <span>22/11/2025</span>
+          <span class="dot"></span>
+          <span>Por Miranda Matu</span>
+        </div>
+        <p class="hero-p">Un recorrido editorial por casas donde la calma se diseña: texturas nobles, líneas puras y atmósferas que respiran.</p>
+        <a class="readmore" href="#">Leer story →</a>
+      </div>
+    </div>
+
+    <aside class="hero-side">
+      <a class="mini" href="#">
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1200&auto=format&fit=crop');"></div>
+        <div class="content">
+          <div class="eyebrow">Interiores</div>
+          <h3>La cocina como esculturas</h3>
+          <p>Materiales cálidos y precisión minimalista.</p>
+        </div>
+      </a>
+      <a class="mini" href="#">
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=1200&auto=format&fit=crop');"></div>
+        <div class="content">
+          <div class="eyebrow">Homes</div>
+          <h3>Refugio entre pinos</h3>
+          <p>Una casa elevada que mira el paisaje.</p>
+        </div>
+      </a>
+    </aside>
+  </section>
+
+  <div class="controls">
+    <div class="tabs" role="tablist" aria-label="Filtros">
+      <button class="tab active" data-filter="all">All Stories</button>
+      <button class="tab" data-filter="arquitectura">Arquitectura</button>
+      <button class="tab" data-filter="interiores">Interiores</button>
+      <button class="tab" data-filter="paisaje">Paisaje</button>
+    </div>
+    <label class="search" aria-label="Buscar stories">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="search" placeholder="Buscar por título…" />
+    </label>
+  </div>
+
+  <main>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <footer>
+    © 2025 Archivo Arquitectónico · Fotografía editorial de arquitectura.
+  </footer>
+
+  <script>
+    const stories = [
+      {
+        category: "arquitectura",
+        label: "Architecture",
+        date: "21/11/2025",
+        title: "Casa Patio: el arte de enmarcar el cielo",
+        excerpt: "Hormigón visto, piedra clara y un patio central que gobierna la luz.",
+        image: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1400&auto=format&fit=crop"
+      },
+      {
+        category: "interiores",
+        label: "Interiors",
+        date: "19/11/2025",
+        title: "Madera y sombra en clave contemporánea",
+        excerpt: "Una lectura cálida del minimalismo: tonos miel y líneas suaves.",
+        image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1400&auto=format&fit=crop"
+      },
+      {
+        category: "paisaje",
+        label: "Landscape",
+        date: "18/11/2025",
+        title: "Miradores domésticos",
+        excerpt: "Viviendas cuyo diseño nace del terreno y se abre al horizonte.",
+        image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1400&auto=format&fit=crop"
+      },
+      {
+        category: "arquitectura",
+        label: "Architecture",
+        date: "12/11/2025",
+        title: "Geometría blanca y agua quieta",
+        excerpt: "Un volumen puro que dialoga con un espejo de agua.",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1400&auto=format&fit=crop"
+      },
+      {
+        category: "interiores",
+        label: "Interiors",
+        date: "07/11/2025",
+        title: "Texturas nobles en espacios pequeños",
+        excerpt: "Cómo la luz y el detalle hacen lujo sin exceso.",
+        image: "https://images.unsplash.com/photo-1502005097973-6a7082348e28?q=80&w=1400&auto=format&fit=crop"
+      },
+      {
+        category: "arquitectura",
+        label: "Homes",
+        date: "05/11/2025",
+        title: "Casa Ladera: vivir con el paisaje",
+        excerpt: "Una secuencia de terrazas que acompaña la pendiente.",
+        image: "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1400&auto=format&fit=crop"
+      },
+    ];
+
+    const grid = document.getElementById('grid');
+    const tabs = document.querySelectorAll('.tab');
+    const searchInput = document.getElementById('searchInput');
+
+    function render(list){
+      grid.innerHTML = list.map(s => `
+        <article data-category="${s.category}">
+          <div class="thumb" style="background-image:url('${s.image}')"></div>
+          <div class="card">
+            <div class="label-row">
+              <span>${s.label}</span>
+              <span>${s.date}</span>
+            </div>
+            <h2>${s.title}</h2>
+            <p>${s.excerpt}</p>
+            <a class="readmore" href="#">Read more →</a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function applyFilters(){
+      const active = document.querySelector('.tab.active')?.dataset.filter || 'all';
+      const q = searchInput.value.toLowerCase().trim();
+
+      const filtered = stories.filter(s => {
+        const matchesTab = active === 'all' || s.category === active;
+        const matchesSearch = !q || s.title.toLowerCase().includes(q);
+        return matchesTab && matchesSearch;
+      });
+
+      render(filtered);
+    }
+
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      applyFilters();
+    }));
+
+    searchInput.addEventListener('input', applyFilters);
+
+    render(stories);
+  </script>
+</body>
+</html>
